@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PICO 6.0</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<script src="http://www.geoserver.nl/ol/openlayers212/OpenLayers.js"></script>
+<script type="text/javascript" src="maps.js"></script>
+<script type="text/javascript" src="config/pico-wim.js"></script>
+<script type="text/javascript" src="lib.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<style>
+
+</style>
+<script type="text/javascript">
+function inithelp(){
+	if(window.location.href.indexOf("help") > -1) {
+		elem('Gebiedselectie').onmouseover=function(event){help(event,"Hier kan je gebieden selecteren. Die worden toegevoegd aan een lijst. In de lijst kan je ook weer gebieden verwijderen. Onderaan in het resultaat zie je de aantallen dan veranderen bij <i>Selectie</i>")}
+		elem('gebruiksfunctie').onmouseover=function(event){help(event,"Hier selecteer je de typen gebouwen <i>binnen de bestaande gebiedsselectie</i>. Dus de aantallen onderaan bij <i>selectie</i> worden dan minder. ")}
+		var maatregelentext="Per maatregel kan je<br>- De kaartlaag (heatmap) aanzetten waarmee je inzicht krijgt in de ruimtelijke spreiding van de effectifiteit van de maaytregel, en <br>- De maatregel selecteren. Het <i>effect</i> van de maatregel op de geselecteerde gebouwen wordt dan berekend en getoond in het <i>resultaten window</i> rechtsonder."
+		elem('Isolatiemaatregelen').onmouseover=function(event){help(event,"Hier staan de isolatie maatregelen. "+maatregelentext )}
+		elem('Alternatieveenergiebronnen').onmouseover=function(event){help(event,"Hier staan de alternatieve energiebronnen maatregelen. "+maatregelentext)}
+		elem('result').onmouseover=function(event){help(event,"Hier staan de resultaten: <br>- links het aantal gebouwen die geselecteerd zijn en <br>- rechts de gekozen maatregen en hun effecten")}
+		elem('map').onmouseover=function(event){help(event,"Dit is de kaart. Er zijn 3 typen kaartlagen:<br>- Ondergronden<br>- Maatregel heatmap <br>- Geselecteerde gebouwen.<br>")}
+		elem('button').onmouseover=function(event){help(event,"Er zijn 3 knoppen:<br>- Selecteer extra kaartlagen<br>- Een buurtsamenvatting<br>- Een energiesamenvatting")}
+    }
+}
+</script>
+</head>
+<body id='body' onload="initmap();">
+
+<div id='mappage'>  <!-- START MAPPAGE *********************************************** -->
+
+<div id='mapsection'>
+	<div id='map'></div>
+	<div class="zoom zoomin" onclick="map.zoomIn()"></div>
+	<div class="zoom zoomout" onclick="map.zoomOut()"></div>	
+	<div id='loading'><center><span id='maploadingtext'>Loading... </span></center></div>
+	<div id='mapsearch'>
+		<input id='mapsearchinput' type="text" placeholder="Navigeer naar een locatie" onkeyup="search(event)" ><img id='mapsearchimage' align=right src='image/navigation.png'>
+		<div id='searchresult'></div>
+	</div>
+	<div class='shadow box' id='legend'>
+		<div class='boxheader' onclick='toggleSize("legend")'>Legenda<img id='legend_maxmin' align=right class='titleicon' src='image/maximize.png' title='minimize'></div>
+		<div id='baselayers'>
+			<span class='baselayerbutton'><img title='stratenkaart' src='image/lyr_straat.jpg' onclick='setBaselayer("Eurostreets")'></span>
+			<span class='baselayerbutton'><img title='luchtfoto' src='image/lyr_lufo.jpg' onclick='setBaselayer("Luchtfoto2012")'></span>
+			<span class='baselayerbutton'><img title='grijzekaart' src='image/lyr_grijs.jpg' onclick='setBaselayer("nachtkaart")'></span>
+			<span class='baselayerbutton'><img title='topografie' src='image/lyr_topo.jpg' onclick='setBaselayer("topokaart")'></span>
+		</div>
+		<div id='legendgebouwen'>
+			<img class='boxicon' src='image/delete.png' align=right title='maak laag o' onclick='layervisibility("bag_topo")'>
+			<img class='boxicon' src='image/opacity.png' align=right title='maak laag transparant' onclick='layeropacity("bag_topo")'>
+			<img class='boxicon' src='image/eye.png' align=right title='maak laag onzichtbaar' onclick='layervisibility("bag_topo")'>
+			<img class='boxicon' src='image/addlayer.png'  title='maak laag onzichtbaar' onclick='layervisibility("bag_topo")'><span class='clickable' onclick='layervisibility("bag_topo")'>Gebouwen</span>
+			<hr>
+		</div>
+		<div id='legendcontent'>
+		</div>
+	</div>
+	<div class='box' id='result'>
+		<div class='boxheader' onclick='toggleSize("result")'>Resultaat<span id='aantallen'></span><img id='result_maxmin' align=right class='titleicon' src='image/maximize.png' title='minimize'><img onclick='showDatapage("Resultaat")' align=right class='titleicon' src='image/help.png' title='documentatie'></div>
+		<div id='resultcontent'></div>
+	</div>
+</div>
+
+<div id='leftbox' class='shadow'>
+	<!-- ontwerp je buurt -->
+	<div class='box' id='gebiedselectie' >
+		<div class='boxheader'>Ontwerp je buurt</div>
+		<div class='boxcontent'>
+			<input id='addByArea' placeholder=' Selecteer postcode of buurt' type=text onkeyup="areaAdd(event)"  title="vul in (een deel van een) postcode of buurtnaam">
+			<div id='selectresult'><i>Nog niets geselecteerd</i><br></div>
+			<div id='XXcqlfilter'></div>
+			<div id='XXwfsurl'></div>
+			<div id='gebouwselectie'> 
+				<label><input id='gebsel_woning' type=checkbox class='checkbox' onclick='selectieLayer()'>woningen</label><br>
+				<label><input id='gebsel_grondg' type=checkbox class='checkbox' onclick='selectieLayer()'>grondgebonden panden</label><br>
+				<label><input id='gebsel_nieuwb' type=checkbox class='checkbox' onclick='selectieLayer()'>bouwjaar </label>
+					<input id='jaarvan' value='2000' class='jaar' type=text onchange='selectieLayer()'>-<input id='jaartot' onchange='selectieLayer()' class='jaar' value='2020' type=text>
+				<br>
+			</div>
+			<div id='statistiekselectie'>
+				Maatregelen: <span id='pandenaantal'>-</span> panden (<span id='adressenaantal'>-</span>&nbsp;adr.&nbsp;/&nbsp;<span id='postcodeaantal'>-</span>&nbsp;pc.)<br>
+					<!--<span id='adressenaantal'>-</span>-->
+				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick='addLayer("Gemiddelde kostenbesparing (naar B)")'><label><input id="MSR_labelCDEFGnaarB" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Van label CDEFG naar B'>Label CDEFG > B</label><img onclick='showDatapage("Van_label_CDEFG_naar_B")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
+				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick='addLayer("Gemiddelde kostenbesparing (naar A+)")'><label><input id="MSR_labelCDEFGnaarA" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Van label BCDEFG naar A+'>Label BCDEFG > A+</label><img onclick='showDatapage("Van_label_BCDEFG_naar_A_plus")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
+				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick='addLayer("Gemiddelde investering (2-stap)")'><label><input id="MSR_label2stap" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Van label EFG 2 stappen beter'>Label EFG 2 beter</label><img onclick='showDatapage("Van_label_EFG_2_stappen_beter")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
+				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick="addLayer('Zonnepotentie')"><label><input id="MSR_Zonnepotentie" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Zonnepotentie'>Zonnepotentie</label><img onclick='showDatapage("Zonnepotentie")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
+			</div>
+		</div>
+		<div class='leftboxhelp'><hr><span id='leftboxhelphide'>Type of klik op de kaart en kies een postcode, buurt, wijk of gemeente en bekijk wat de kosten en de baten zijn van isolatiemaatregelen of alternatieve energiebronnen.<br><br>In het resultaatscherm staan de kosten en de baten voor jouw buurt en de door jou gekozen maatregelen.<br><br></span><a href='#' onclick='showMappage("kaarten")'>Alle beschikbare kaartlagen bekijken? Ga dan naar het kaartlagen overzicht.</a></div>
+	</div>
+	<!-- kaartlagen -->
+	<div class='box' id='layerfavo' >
+		<div class='boxheader' >Kaartlagen</div>
+		<div id='layerlist'></div>
+		<div class='boxcontent'>
+		</div>
+		<div class='leftboxhelp'><hr>Bekijk meer dan 100 kaartlagen met informatie over je buurt.<br><br>De geopende kaartlagen kan je in de leganda rechts aan- en uitzetten of de transparantie aanpassen. <br><br>Klik op de kaart voor informatie over de buurt en de geopende kaartlagen. <br><br>Wat zijn bijvoorbeeld de mogelijkheden voor windmolens of geothermie. Waar zitten de gasaansluitingen en waar lopen de electiciteitsleidingen.<br><br><a href='#' onclick='showMappage("bespaar")'>Nu kijken wat je in jouw buurt kan besparen? Ga dan naar 'ontwerp je buurt'</a></div>
+	</div>
+	<!-- documentage -->
+	<div class='box' id='datamenu' >
+		<div class='boxheader' >Documentatie</div>
+		<div  class='boxcontent' >
+			<a target='documentation' href='data/Ontwerp_een_duurzame_buurt.html'>Ontwerp een duurzame buurt</a>
+			<h3>Energieverbruik</h3>
+			<a target='documentation' href='data/Energieverbruik_(Kleinverbruik).html'>Energieverbruik (Kleinverbruik)</a><br>	
+			<a target='documentation' href='data/Historisch_verbruik.html'>Historisch verbruik</a><br>
+			<a target='documentation' href='data/Verbruiksindex.html'>Verbruiksindex</a><br>
+			<a target='documentation' href='data/Warmtevraag_en_warmteaanbod.html'>Warmtevraag en warmteaanbod</a><br>
+			<h3>Gebieden</h3>
+			<a target='documentation' href='data/Gebieden.html'>Gebieden</a><br>	
+			<h3>Gebouwen</h3>
+			<a target='documentation' href='data/Gebouwen.html'>Gebouwen</a><br>
+			<h3>Isolatie woning</h3>
+			<a target='documentation' href='data/Van_label_EFG_2_stappen_beter.html'>Van label EFG 2 stappen beter</a><br>
+			<a target='documentation' href='data/Van_label_CDEFG_naar_B.html'>Van label CDEFG naar B</a><br>
+			<a target='documentation' href='data/Van_label_BCDEFG_naar_A_plus.html'>Van label BCDEFG naar A+</a><br>
+			<a target='documentation' href='data/RVO_Isolatiepakket.html'>RVO Isolatiepakket</a><br>
+			<h3>Energieopwekking woning</h3>
+			<a target='documentation' href='data/All-electric_pakket.html'>All-electric pakket</a><br>
+			<a target='documentation' href='data/Zonnepotentie.html'>Zonnepotentie</a><br>
+			<h3>Gebiedsmaatregelen</h3>
+			<a target='documentation' href='data/Windpotentie.html'>Windpotentie</a><br>
+			<a target='documentation' href='data/Restwarmte.html'>Restwarmte</a><br>
+			<a target='documentation' href='data/Geothermie.html'>Geothermie</a><br>
+			<a target='documentation' href='data/Warmte_Koude_Opslag_(WKO).html'>Warmte Koude Opslag (WKO)</a><br>
+			<h3>Infrastructuur</h3>
+			<a target='documentation' href='data/Elektriciteitsnetwerk.html'>Elektriciteitsnetwerk</a><br>
+			<a target='documentation' href='data/Gasnetwerk.html'>Gasnetwerk</a><br>
+		</div>
+		<div class='leftboxhelp'><hr>Klik overal in de applicatie op een vraagteken <img class='boxicon' src='image/help.png'> en bekijk de documentatie.</div>
+	</div>	
+	<!-- startmenu -->
+	<div  class='box' id='startmenu' >
+		<div class='boxheader'>Menu</div>
+		<div  class='leftboxhelp' >
+			<h2><img class='datamenuimg' width=25px src='image/user.png'> <span class='link' id='loginnaam' onclick='showDatapage("login")'>Inloggen</a></h2>
+			<h2><img class='datamenuimg' width=25px src='image/addlayer.png'> <span class='link' onclick='showMappage("kaarten")'>Bekijk je buurt</span></h2>
+			<h2><img class='datamenuimg' width=25px src='image/map.png'> <span class='link' onclick='showMappage("bespaar")'>Ontwerp je buurt</span></h2>
+			<h2><img class='datamenuimg' width=25px src='image/email.png'> <span class='link' onclick='showDatapage("contact")'>Contact</span></h2>
+			<h2><img class='datamenuimg' width=25px src='image/book.png' > <span class='link' onclick='showDatapage("docu")'>Documentatie</a></h2>
+		</div>
+		<div class='leftboxhelp'><hr>Welkom bij Pico<br><br>PICO verstrekt relevante informatie over energie, CO2, kosten en opbrengsten, aan woningcorporaties, vastgoedeigenaren, bewonerscollectieven, (lagere) overheden, netbeheerders en energieleveranciers. PICO zet de mogelijkheden voor energiebesparing, duurzame opwekking en gebruik letterlijk op de kaart. <br><br> <i>PICO is ontwikkeld door een samenwerkingsverband van Geodan, TNO, Alliander, Ecofys, NRG031, en Esri Nederland.</i></div>
+	</div>
+</div>
+
+<div id='top' class='shadow'>
+	<img id='logo' src='image/pico.png' onclick="showDatapage('start')" title='Pico test 6.0'>
+	<img id='beta' src='image/beta.png'>
+	<img id='family' src='image/gezin.png'>
+	<div id='mills'>
+		<img id='mill1' src='image/windmill.png'>
+		<img id='mill2' src='image/windmill.png'>
+		<img id='mill3' src='image/windmill.png'>
+	</div>
+	<img id='people' src='image/people.png'>
+
+	<div id='button'>
+		<img id='button1' class='infobutton' src='image/map.png' title='Ontwerp je buurt'  onclick='showMappage("bespaar")'>
+		<img id='button2' class='infobutton' src='image/addlayer.png' title='Bekijk je buurt' onclick='showMappage("kaarten")'>
+		<img id='button3' class='infobutton' src='image/book.png' title='Documentatie' onclick='showDatapage("docu")'>
+		<img id='button4' class='infobutton' src='image/email.png' title='Contact' onclick='showDatapage("contact")'>
+		<img id='button5' class='infobutton' src='image/user.png' title='Gebruiker' onclick='showDatapage("login")' >
+	</div>
+</div>
+
+</div>  <!-- EINDE MAPPAGE *********************************************** -->
+
+<!-- iframe met documentatie -->
+<div id='datapage' >
+	<div id='data' class='shadow' style='max-width:1010px;'>
+		<iframe id='documentation' name='documentation' name='zoekframe' src="data/Ontwerp_een_duurzame_buurt.html" style="width:100%;height:100%;overflow:hidden;max-width:1000px;" frameborder="0" border="0" framespacing="0"></iframe>
+	</div>
+</div>
+
+<span id='dummy'></span>
+
+</body>
+</html>

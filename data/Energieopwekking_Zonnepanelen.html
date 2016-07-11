@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../style.css">
+<script type="text/javascript" src="zon/zon.js"></script>
+</head>
+<body>
+<script>zonnetje()</script>
+@Energieopwekking_Zonnepanelen# 
+
+<h1>Zonnepotentiemodel</h1>
+<h2>Ter introductie</h2>
+<h3>Wat laat de kaartlaag zien?</h3>
+<p>De PICO data voor zonnepotentie is afkomstig van een zonnepotentiemodel van Geodan dat is gebaseerd op de BAG en het AHN2. Hieronder wordt kort uitgelegd welke data en rekenregels Geodan heeft toegepast om dit zonnepotentiemodel te ontwikkelen. Deze PICO laag laat voor elk dakdeel in Nederland de potentie voor zonnepanelen zien in kWh/jaar. De data geeft inzicht in potentieel interessante locaties voor zonnepanelen. Op basis van deze gegevens kan in een eerste quickscan bepaald worden op welke gebouwen zonnepanelen relatief veel opleveren. Op deze manier kunnen ook wijken of buurten met veel geschikte daken geïdentificeerd worden wat bijvoorbeeld interessant kan zijn voor woningcorporaties of lokale duurzame energie initiatieven. </p>
+<h2>Zonnepotentiemodel</h2>
+<h3>Waar komt de basisdata vandaan?</h3>
+<p>De zonnepotentie is berekend voor elk gebouw in Nederland. Hiervoor is de Basisregistraties Adressen en Gebouwen (BAG) gebruikt. Deze dataset bevat alle gebouwen van Nederland en het is open data. De gemeenten zijn bronhouder van deze data. Het Kadaster stelt deze dataset beschikbaar.</p>
+<p>Voor elk van deze gebouwen is de dakhoek, beschikbaar dakoppervlakte voor zonnepanelen en dakoriëntatie berekend. Dit is gedaan op basis van het Actueel Hoogtebestand Nederland (AHN2). Deze dataset bevat gedetailleerde hoogtegegevens van heel Nederland met gemiddeld acht metingen per vierkante meter. Het AHN2 is open data en vrij te downloaden via het PDOK of het NationaalGeoregister. </p>
+<h3>Welke regenregels en welke aannames zijn gebruikt?</h3>
+<p>Op basis van het AHN2 en algoritmes van Geodan is voor elk dakdeel van een gebouw de dakhoek, beschikbaar dakoppervlakte voor zonnepanelen en dakoriëntatie berekend. Er kunnen meerdere dakdelen per gebouw voorkomen, bijvoorbeeld bij een puntdak (voor- en achterkant). Het resultaat hiervan is dat van elk dakdeel van een gebouw de dakhoek, beschikbaar dakoppervlakte en oriëntatie beschikbaar is. Vervolgens is per dakdeel de zonnepotentie in kWh/jaar berekend met behulp van het zonnepotentiemodel van Geodan, op basis van het aantal zonnepanelen dat op het desbetreffende dakdeel geplaatst kunnen worden. De uitkomsten van alle dakdelen van een gebouw worden bij elkaar opgeteld omdat de resultaten in PICO per gebouw weergegeven worden. </p>
+<p>In deze berekening zijn verschillende aannames gedaan. De zonnepotentie is bepaald op basis van de gemiddelde inkomende zonnestraling tussen 1990 en 2010 van weerstation De Bilt. Deze data is afkomstig van het KNMI. Andere aannames zijn gedaan met betrekking tot de efficiëntie van het zonnepaneelsysteem waarmee gerekend is. De efficiëntie van het zonnepaneel is gezet op 16% met een performance ratio van het gehele systeem van 85%. </p>
+
+</body>
+</html>

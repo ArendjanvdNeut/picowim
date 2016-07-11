@@ -1,0 +1,20 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../style.css">
+<link rel="stylesheet" type="text/css" href="docu.css">
+<script type="text/javascript" src="zon/zon.js"></script>
+</head>
+<body>
+<script>zonnetje()</script>
+<h1>Energieopwekking warmte achtergrondinformatie</h1>
+<p>De uitkomsten geven inzicht in de indicatieve winst in termen van energiebesparing, CO2, welke investeringskosten daarbij horen en wat de jaarlijkse besparing op de energierekening is (en deze twee laatste gecombineerd geven de simpele terugverdientijd). Op basis van deze gestandaardiseerde landelijke gegevens kan een eerste quickscan worden gemaakt van de mogelijkheden voor een warmtenet in een gemeente op wijk of buurtniveau, en als zodanig helpen bij de visievorming op dit onderwerp. Het is altijd aan te raden om in een vervolgfase deze standaardgegevens te verrijken met lokale aanvullende of specifiekere informatie over lokale bronnen van restwarmte en/of de (ondiepe en diepe) ondergrond.</p> 
+
+<p>Vesta bepaalt of warmtedistributie economisch rendabel is in een gebied (terugverdientijd minder dan 30 jaar). Is dat het geval, dan wordt aan dat gebied vervolgens warmtedistributie via restwarmte toegewezen. Zo niet, dan blijft de default van kracht: aardgas. Het rekensysteem moet dus op PC6-niveau administreren welke warmtevoorziening is toegewezen. NB: de warmte-opties zijn niet per definitie geheel CO2-vrij: gasmotor, piekketel en overdrachtstations worden gevoed met aardgas; bovendien staat er een efficiency penalty op het uitkoppelen van warmte bij de productie van elektriciteit.</p>
+
+<p>Het systeem rekent per gebied eerst de maximale opbrengst van warmtelevering uit, en de benodigde investeringen en andere kosten voor een warmtedistributienet in het gebied. Op basis daarvan wordt een maximale warmte-inkoopprijs voor het gebied bepaald. Die wordt vervolgens vergeleken met de diverse aanbodmogelijkheden. Per PC-gebied wordt op basis van de invoergegevens bepaald wat de maximale warmte-inkoopprijs mag zijn. Voor grootschalige restwarmte en geothermie is dat PC4-niveau, voor WKO is dat PC6-niveau. Deze wordt vervolgens vergeleken met de kosten (investeringen, etc.) om de warmte in het gebied te brengen. Voor restwarmtebronnen worden deze laatste kosten bepaald door de productiekosten van de warmte plus de transport- en distributiekosten. Voor nieuwe bronnen die specifiek voor het gebied worden geïnvesteerd, zoals WKO, zijn de transportkosten nihil vanuit de aanname dat de nieuwe bron zo optimaal mogelijk in het gebied zal worden gepositioneerd.</p> 
+
+<p>Per onderscheiden gebied worden de opbrengsten en kosten van grootschalige warmtelevering berekend op basis van aantallen gebouwen, warmtebehoefte per gebouw, aansluitdichtheid en aansluitwaarde per gebouw. Aan deze gegevens worden kengetallen voor de opbrengsten en kosten van warmtedistributie gekoppeld. De opbrengsten minus de kosten resulteren per warmteleveringsgebied in een prijs waarvoor warmte voor dat warmteleveringsgebied kan worden ingekocht bij kostendekkende warmtelevering: de maximale warmte-inkoopprijs. De berekende maximale warmte-inkoopprijs wordt vervolgens vergeleken met productieprijzen. De productieprijzen zijn de prijzen van warmteproductie bij inzet van verschillende typen productie-eenheden. Per warmteleveringsgebied wordt op basis van de warmtevraag bepaald of een productie-eenheid voor warmtelevering in aanmerking komt; in het door de gebruiker geselecteerde aanbodscenario wordt de prioritaire volgorde van inzet van de verschillende typen warmteproductie bepaald. Kostendekkende warmtelevering is mogelijk als de maximale warmte-inkoopprijs hoger is dan de productieprijs.</p>
+
+</body>
+</html>

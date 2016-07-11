@@ -1,0 +1,106 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="data/docu.css">
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript">
+</script>
+<style>
+#xregisterinfo{display:none}
+#lgType{padding:5px;width:390px;display:inline-block}
+#errortext{color:red}
+.kaartknop{position:relative;width:300px;text-align:center;background-color:green;border-radius:5px;color:white;height:30px;font-size:150%;padding:20px;cursor:pointer;margin:20px 20px 20px 0px }
+.kaartknop:hover{opacity:0.8}
+.kaartknopsmall{display:inline;width:100px;line-height:200%;color:grey;height:20px;font-size:100%;cursor:pointer;}
+.kaartknopsmall:hover{opacity:0.8}
+
+</style>
+</head>
+<body onload='login_start()'>
+<div id='loading' ></div>
+<h1>Start de kaart</h1>
+<p>Voordat u naar de kaart kunt willen we graag dat u zich registreert. Daarna kunt u direct aan de slag. Om ons product te verbeteren willen we graag weten wie u bent en waarvoor u PICO gebruikt. Dat is geheel vrijblijvend en uw gegevens worden voor niets anders gebruikt dan voor het verbeteren van onze serviceverlening.</p>
+<p>U heeft zich al geregistreerd? Dan hoeft u alleen in te loggen en u kunt direct aan de slag.</p>
+
+<!-- <span onclick=show_startKaart()>[Ingelogd]</span> <span  onclick=show_inloggen()>[Inloggen]</span> <span  onclick=show_registreren()>[registreren]</span> -->
+
+<hr>
+<!-- Reeds ingelogd -->
+<table id='startkaart' width=700px style='display:none'>
+	<tr><td></td><td><h2>Ingelogd als</h2></td></tr>
+	<tr><td align=right width="175px">Naam:</td><td><input name='piconaam' readonly id='start_lgNaam' class='login' type=text ></td></tr>
+	<tr><td align=right >Email:</td><td><input name='picoemail' readonly id='start_lgEmail' class='login' type=text ><span id='lgEmailMsg'></span></td></tr>
+	<tr>
+		<td width="175px"></td>
+		<td>
+			<div id='register' class='kaartknop' onclick="startKaart()">Naar de kaart</div>
+			<div class='kaartknopsmall' id='starterrortext' ></div>
+			<div id='loguit' class='kaartknopsmall' onclick="login_uitloggen()">Uitloggen</div>
+		</td>
+	</tr>
+</table>
+
+<!-- inloggen -->
+<table id='inloggen' width=700px style='display:none'>
+	<tr><td></td><td><h2>Inloggen</h2></td></tr>
+	<tr><td align=right>Email:</td><td><input name='picoemail' id='inlog_lgEmail' class='login' type=text onkeyup="login_inlogsave(event)" ><span id='lgEmailMsg'></span></td></tr>
+	<tr><td align=right>Wachtwoord:</td><td><input name='picoww' id='inlog_lgPassword' class='login' type=password  onkeyup="login_inlogsave(event)"></td></tr>
+	<tr><td></td><td><label><input id='inlog_lgSave' class='checkbox' checked type=checkbox > Onthoud mij op deze computer</label><br></td></tr>
+	<tr>
+		<td width="175px"></td>
+		<td>
+			<div id='register' class='kaartknop' onclick="login_inlogsave()">Inloggen</div>
+			<div class='kaartknopsmall' id='errortext' ></div>
+			<div class='kaartknopsmall' onclick="show_registreren(0)">Nog geen account? Registreer je geheel vrijblijvend.<br></div>
+			<div class='kaartknopsmall' onclick="show_registreren(1)">Wachtwoord vergeten? Verwijder je account en registreer opnieuw.<br></div>
+		</td>
+	</tr>
+</table>
+
+<!-- registreren -->
+<table id='registreren' width=700px style='display:none'>
+	<tr><td></td><td><h2>Registreren</h2></td></tr>
+	<tr><td align=right>Email:</td><td><input name='picoemail' onkeyup="login_register( event )" id='reg_lgEmail' class='login' type=text ><span id='lgEmailMsg'></span></td></tr>
+	<tr>
+		<td align=right>Wachtwoord:</td>
+		<td><input  onkeyup="login_register(event)" id='reg_lgPassword' class='login' type=password >
+		</td>
+	</tr>
+	<tr><td></td><td><label><input id='reg_lgSave' class='checkbox' checked type=checkbox > Onthoud mij op deze computer</label><br></td></tr>
+	<tr ><td align=right width="175px">Naam:</td><td><input name='piconaam' onkeyup="login_register(event)" id='reg_lgNaam' class='login' type=text ></td></tr>
+	<tr>
+		<td align=right>Ik ben:</td>
+		<td><span id='lgType'>
+			<input  onchange='chkGebrtype()' onkeyup="login_register(event)" id='reg_lgParticulier' class='checkbox' name=gebrtype type=radio >Particulier
+			<input  onchange='chkGebrtype()' onkeyup="login_register(event)" id='reg_lgOverheid' class='checkbox' name=gebrtype  type=radio >Overheid
+			<input  onchange='chkGebrtype()' onkeyup="login_register(event)" id='reg_lgBedrijf' class='checkbox' name=gebrtype  type=radio >Bedrijf
+			</span>
+		</td>
+	</tr>
+
+	<tr id='trOrgnaam' style='display:none' ><td align=right width="175px">Organisatie:</td><td><input  onkeyup="login_register(event)" id='reg_lgOrgnaam' class='login' type=text ></td></tr>
+	<tr ><td align=right valign=top><br>Ik gebruik Pico omdat:</td>
+		<td>
+		<textarea  style='height:100px' id='reg_lgOpm' class='login' type=text ></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td width="175px"></td>
+		<td>
+			<div id='register' class='kaartknop' onclick="login_register()">Registreren</div>
+			<div class='kaartknopsmall' id='regerrortext' ></div>
+			Door zich te registreren verklaart u de disclaimer te hebben gelezen en gaat u akkoord met de onderstaande voorwaarden.
+		</td>
+	</tr>
+
+</table>
+<hr>
+<h2>Disclaimer</h2>
+<p>Aan PICO kunnen geen rechten worden ontleend. Hoewel deze website met de groots mogelijke zorg is samengesteld kan het PICO-consortium geen enkele aansprakelijkheid aanvaarden voor schade als gevolg van eventuele onjuistheden en/of uitvoering of gebruik op basis van de getoonde resultaten. De informatie op deze pagina’s kan zonder kennisgeving wijzigen. Vragen of opmerkingen met betrekking tot permissies en restricties kunnen gestuurd worden naar <a href="mailto:PicoSupport@geodan.nl">PicoSupport@geodan.nl</a>. </p>
+
+<h2>Voorwaarden</h2>
+De via deze website geleverde informatie mag u (binnen uw organisatie) gebruiken en verspreiden in de vorm van niet verder bewerkbare digitale bestanden of hardcopy prints, of in de vorm van verrijkingen van digitale gegevens van uw eigen organisatie of van gegevens van derden. Het gebruik van robots, spiders of andere automatische of handmatige tools om (diensten van) deze website te bevragen, te monitoren of te verstoren, alsmede het gebruik van software die de werking van deze site negatief kan beïnvloeden is niet toegestaan. Alle Data, zoals locaties, kaarten, en gerelateerde inhoud zijn uitsluitend bedoeld voor planningsdoeleinden. De inhoud van de data kan afwijken van de werkelijkheid. Bepaalde Data die wordt geleverd onder licentie van derden is onderworpen aan het auteursrecht en andere intellectuele eigendomsrechten van derden. 
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../style.css">
+<link rel="stylesheet" type="text/css" href="docu.css">
+<script type="text/javascript" src="../lib.js"></script>
+<script type="text/javascript">
+function loginSave(){
+	var name = elem('loginnaaminput').value
+	top.elem('loginnaam').innerHTML=name
+}
+ 
+</script>
+<style>
+#registerinfo{display:none}
+</style>
+</head>
+<body>
+<h1>Start de kaart</h1>
+<p>Voordat u naar de kaart kunt willen we graag dat u zich registreert. Daarna kunt u direct aan de slag. Om ons product te verbeteren willen we graag weten wie u bent en waarvoor u PICO gebruikt. Dat is geheel vrijblijvend en uw gegevens worden voor niets anders gebruikt dan voor het verbeteren van onze serviceverlening.</p>
+<p>U heeft zich al geregistreerd? Dan hoeft u alleen in te loggen en u kunt direct aan de slag.</p>
+<hr>
+<br>
+<table width=700px>
+<tr>
+	<td width="175px"></td>
+	<td>
+		<div id='inlog' class='shadow kaartknopsmall' onclick="elem('registerinfo').style.display='none'"><center>Inloggen</center></div> 
+		<div id='register' class='shadow kaartknopsmall' onclick="elem('registerinfo').style.display='block'"><center>Registreren</center></div>
+
+
+	</td>
+</tr>
+<tr>
+	<td valign=top>Uw naam:</td>
+	<td><input id='loginnaaminput' class='login' type=text onchange='loginSave()'></td>
+</tr>
+<tr>
+	<td valign=top>Uw wachtwoord:</td>
+	<td>
+		<input id='loginnaaminput' class='login' type=text onchange='loginSave()'><br>
+		<a href=""><i>Wachtwoord vergeten?</i></a><br><br>
+	</td>
+</tr>
+</table>
+<table id='registerinfo'width=700px>
+<tr>
+	<td>Ik ben:</td>
+	<td>
+		<input id='loginsaveinput' class='checkbox' name=gebrtype type=radio onchange='loginSave()'>Particulier
+		<input id='loginsaveinput' class='checkbox' name=gebrtype  type=radio onchange='loginSave()'>Overheid
+		<input id='loginsaveinput' class='checkbox' name=gebrtype  type=radio onchange='loginSave()'>Overig<br>
+		<input id='loginsaveinput' class='checkbox' name=gebrtype  type=radio onchange='loginSave()'>Bedrijf energiesector
+		<input id='loginsaveinput' class='checkbox' name=gebrtype  type=radio onchange='loginSave()'>Bedrijf anders
+	</td>
+</tr>
+
+<tr ><td width="175px">Uw organisatie:</td><td><input id='loginemailinput' class='login' type=text onchange='loginSave()'></td></tr>
+<tr ><td>Uw emailadres:</td><td><input id='loginemailinput' class='login' type=text onchange='loginSave()'></td></tr>
+<tr ><td valign=top><br>Ik gebruik Pico omdat:</td>
+	<td>
+	<textarea style='height:100px' id='loginopminput' class='login' type=text onchange='loginSave()'></textarea>
+	</td>
+</tr>
+<tr><td></td><td><input id='loginsaveinput' class='checkbox' checked type=checkbox onchange='loginSave()'> Onthou mij op deze computer</td></tr>
+</table>
+<table width=700px>
+<tr>
+	<td width="175px">.</td>
+	<td><br>
+		<div id='kaartknop' class='shadow kaartknop' onclick="showMappageFromFrame()"><center>Naar de kaart</center></div>
+	</td>
+</tr>
+</table>
+
+<br><br>
+<hr>
+
+</body>
+</html>

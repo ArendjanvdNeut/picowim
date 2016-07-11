@@ -1,0 +1,30 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../style.css">
+<link rel="stylesheet" type="text/css" href="docu.css">
+<script type="text/javascript" src="zon/zon.js"></script>
+</head>
+<body>
+<script>zonnetje()</script>
+
+<h1>Zonnepotentie</h1>
+<p>Deze kaartlaag laat voor elk dakdeel in Nederland de potentie voor zonnepanelen zien in kWh/jaar. De data geeft inzicht in potentieel interessante locaties voor zonnepanelen en op basis van deze gegevens kan in een eerste quickscan bepaald worden op welke gebouwen zonnepanelen relatief veel opleveren. Op deze manier kunnen ook wijken of buurten met veel geschikte daken geïdentificeerd worden wat bijvoorbeeld interessant kan zijn voor woningcorporaties of lokale duurzame energie-initiatieven.</p>
+
+<h2>Brondata</h2>
+<p>De zonnepotentie is berekend met het zonnepotentiemodel van Geodan dat is gebaseerd op de Basisregistraties Adressen en Gebouwen (BAG) en het Actueel Hoogtebestand Nederland (AHN2). Beide datasets zijn open data. Zie onderaan deze pagina voor meer informatie. 
+
+<h2>Rekenregels en aannames</h2>
+<p>Op basis van het AHN2 en algoritmes van Geodan is voor elk dakdeel van een gebouw de dakhoek, het beschikbare dakoppervlakte voor zonnepanelen en de dakoriëntatie berekend. Er kunnen meerdere dakdelen per gebouw voorkomen, bijvoorbeeld bij een puntdak (voor- en achterkant). Vervolgens is per dakdeel de zonnepotentie in kWh/jaar berekend met behulp van het zonnepotentiemodel van Geodan, op basis van het aantal zonnepanelen dat op het desbetreffende dakdeel geplaatst kunnen worden. Voor elk gebouw zijn de uitkomsten van alle dakdelen bij elkaar opgeteld.</p>
+
+<p>In deze berekening zijn verschillende aannames gedaan. De zonnepotentie is bepaald op basis van de gemiddelde inkomende zonnestraling tussen 1990 en 2010 van weerstation De Bilt. Deze data is afkomstig van het KNMI. De efficiëntie van een zonnepaneel is bepaald op 16% met een performance ratio van het gehele zonnepaneelsysteem van 85%.</p>
+
+<h2>Meer informatie</h2>
+<ul>
+<li><a target=_blank href='https://bagviewer.kadaster.nl/lvbag/bag-viewer'>Over de BAG (Kadaster)</a></li>
+<li><a target=_blank href='http://www.ahn.nl/index.html'>Over het AHN2</a></li>
+</ul>
+
+</body>
+</html>
+

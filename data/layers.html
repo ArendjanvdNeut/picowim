@@ -1,0 +1,32 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../style.css">
+<link rel="stylesheet" type="text/css" href="docu.css">
+<script type="text/javascript" src="zon/zon.js"></script>
+<script type="text/javascript" src="../config/pico-wim.js"></script>
+</head>
+<body>
+<script>zonnetje()</script>
+<h1>Layers</h1>
+
+<script>
+	var list = picoConfig.map.layers;
+	var delim = ';'
+	document.write( "groep"+delim+"subgroep"+delim+"titel"+delim+"featurename"+delim+"url<br>")
+	for (i = 0; i < list.length; i++) { 
+		document.write( list[i].groupName  +delim )
+		document.write( list[i].subgroupName  +delim)
+		document.write( list[i].title  +delim)
+		document.write( list[i].source.featureName  +delim)
+		document.write( list[i].source.url  +delim)
+		//if (list[i].groupName && thisgroup!=list[i].groupName){
+		//if (list[i].subgroupName && thissubgroup!=list[i].subgroupName){
+		//if (list[i].title && thislayer!=list[i].titl){
+		document.write('<br>')
+	}	
+</script>
+
+
+</body>
+</html>

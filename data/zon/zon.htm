@@ -1,0 +1,38 @@
+<html>
+<head>
+<script>
+var zon="start"
+function getImage(image){
+	var file="start"
+	while( zon.indexOf(file)>-1  ){
+		file = "zon"+(1+parseInt(Math.random()*20))
+	}
+	zon+=";"+file
+	image.src=file+".jpg"
+	image.onload=""
+}
+
+function zonnetje(){
+	var content='<div id="zon">'+
+				'<img id="zon1" onLoad="getImage(this)" src="zon0.jpg" width=200px><br>'+
+				'<img id="zon2" onLoad="getImage(this)" src="zon0.jpg" width=200px><br>'+
+				'<img id="zon3" onLoad="getImage(this)" src="zon0.jpg" width=200px></div>'
+	document.write(content)
+}
+
+</script>
+<style>
+
+#zon{float:right;margin:0px 25px 25px 25px ;}
+#zon1{padding:3px;border-radius:10px 10px 0px 0px}
+#zon2{padding:3px;}
+#zon3{padding:3px;border-radius:0px 0px 10px 10px}
+
+</style>
+</head>
+<body>
+<script>zonnetje()</script>
+df gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsddf gds asfg s sgsags sd gfsg sad gsdagdsg adg adsg sdg gdasdgsd
+
+</body>
+</html>
