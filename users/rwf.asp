@@ -7,7 +7,7 @@
 
 Dim filepath	
 'filepath = array("\\leda\D\inetpub\wwwroot\hosting\pico\users\","\\elara\D\inetpub\wwwroot\hosting\pico\users\","\\helike\D\inetpub\wwwroot\hosting\pico\users\")
-filepath = array("c:\inetpub\wwwroot\PICOwim\users\")
+filepath = array("\\C\inetpub\wwwroot\inetpub\PICObeta1","\\elara\D\inetpub\wwwroot\hosting\pico\users\","\\helike\D\inetpub\wwwroot\hosting\pico\users\")
 
 
 Const ForReading = 1 '- Open a file for reading. You cannot write to this file.
