@@ -509,8 +509,7 @@ function initLayerlist(){
 				docupage=list[i].groupName
 				if (list[i].subgroupName){docupage=list[i].subgroupName}
 				docupage=docupage.replace(/ /g,"_")
-				content+="<span class='layermenu' title='"+indent+indent+list[i].title+
-							"'><span class='layermenutext' onclick='addLayer(\""+
+				content+="<span class='layermenu'><span onclick='addLayer(\""+
 							list[i].title+"\")'><img class='boxicon' src='image/addlayer.png' title='voeg laag toe'> "+
 							indent+indent+list[i].title+
 							"</span><img onclick='showDatapage(\""+docupage+"\")' align=right class='boxicon' src='image/help.png' title='bekijk documentatie'>"+

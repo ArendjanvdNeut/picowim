@@ -7,6 +7,7 @@ function elem(idname){
 	}
 }
 
+
 function gebselectie(){
 	if (elem('radioAdminSelectie').checked){
 		elem("adminselectie").style.display="block"
@@ -66,9 +67,6 @@ function areaAdd(e,newarea){
 	if (startsearch){
 		elem('selectresult').innerHTML+="<br><img src='image/loading.gif' width=15px> Data ophalen..."
 
-		//maak wat extra ruimte
-		elem('leftboxhelphide').style.display='none'
-		
 		//start de request, resultaat zit in PCdata
 		elem('loadingsel').style.display='block'
 		seltest = seltest.trim().toLowerCase()
@@ -253,7 +251,7 @@ function help(event,text){
 	elem('help').style.top=(y+50)+'px'
 	elem('help').style.left=(x+50)+'px'
 	elem('help').innerHTML=text
-	//elem('help').style.display='block'
+	elem('help').style.display='block'
 }
 function delhelp(){
 	elem('help').style.display='none'
@@ -740,38 +738,25 @@ function showDatapage( page ){
 			hideMenu()
 			elem('documentation').src = "data/Ontwerp_een_duurzame_buurt.html"
 			elem('startmenu').style.display='block'
-			buttonShow(0)
 		}
 		if (page=='docu'){
 			hideMenu()
 			elem('documentation').src = "data/Ontwerp_een_duurzame_buurt.html"
 			elem('datamenu').style.display='block'
-			buttonShow(3)
 		}
 		if (page=='contact'){
 			hideMenu()
 			elem('documentation').src = "data/contact.html"
 			elem('startmenu').style.display='block'
-			buttonShow(4)
 		}
 		if (page=='login'){
 			hideMenu()
 			elem('documentation').src = "login.html"
 			elem('startmenu').style.display='block'
-			buttonShow(5)
 		}
 	}
 	elem('datapage').style.display='block'
 }
-
-function buttonShow(nr){
-	if (!nr){nr=0}
-	for (var i = 1; i<6; i++){
-		if (nr==i)	{elem('button'+i).style.backgroundColor="#CCC"}
-		else 		{elem('button'+i).style.backgroundColor=""}
-	}
-}
-
 function showMappage(type){
 	if ( elem('loginnaam').innerHTML!="Inloggen" ){
 		//er is ingelogd
@@ -780,12 +765,8 @@ function showMappage(type){
 		if (type){
 			if (type=='bespaar'){
 				elem('gebiedselectie').style.display='block'
-				buttonShow(1)
 			}
-			if (type=='kaarten'){
-				elem('layerfavo').style.display='block'
-				buttonShow(2)
-			}
+			if (type=='kaarten'){elem('layerfavo').style.display='block'}
 		}
 	}else{
 		//er is niet ingelogd, start inlogscherm
@@ -1154,7 +1135,6 @@ function show_inloggen(){
 function show_registreren(){
 	elem('reg_lgEmail').value= elem('inlog_lgEmail').value
 	elem('reg_lgPassword').value= elem('inlog_lgPassword').value
-
 	elem('startkaart').style.display="none"
 	elem('inloggen').style.display="none"
 	elem('registreren').style.display="block"
@@ -1171,4 +1151,99 @@ function togglebg(){
 	if (bgcount>bg.length-1){bgcount=0}
 	elem('top').style.backgroundImage = "url('image/"+bg[bgcount]+".jpg')";
 	bgcount++
+}
+
+function showWizard(){
+	if(elem('wizard').style.display === 'block'){
+		location.reload;
+		elem('wizard').style.display = 'none';	
+	}
+	else {
+		elem('wizard').style.display = 'block';
+	}
+}
+
+function mouseUp(){
+    window.removeEventListener('mousemove', divMove, true);
+}
+
+function divMove(e){
+  var div = elem('wizard');
+  div.style.position = 'absolute';
+  div.style.top = (e.clientY - Ydiv) + 'px';
+  div.style.left = (e.clientX - Xdiv) + 'px'
+}
+
+var Xdiv, Ydiv
+function mouseDown(e){
+  var div = elem('wizard');
+   Ydiv = e.clientY - parseInt(div.offsetTop)
+   Xdiv = e.clientX - parseInt(div.offsetLeft)
+  window.addEventListener('mousemove', divMove, true);
+}
+
+var curStep=1
+var maxStep=10
+function WZstep( step ){
+	if (step){
+		curStep=curStep+step
+		if( curStep > maxStep) {closeWindow('wizard')}
+		if( curStep < 1) {curStep=1}
+	}
+	for (var i = 1; i<11; i++){
+		elem( 'WZ'+i ).style.display='none'
+	}
+	elem( 'WZ'+curStep ).style.display='block'
+	
+	if(curStep == 1){
+		elem('WZvorigebutton').style.display='none'
+		elem('WZvolgendebutton').value='Volgende';
+	}
+	
+	if(curStep == 2){
+		elem('WZvorigebutton').style.display='block'
+		elem('WZvolgendebutton').value='Volgende';
+		showMappage('kaarten');
+	}
+	if(curStep == 3){
+		elem('WZvorigebutton').style.display='block'
+		elem('WZvolgendebutton').value='Volgende';
+		showMappage('kaarten');
+	}
+	
+	if(curStep == 4){
+		elem('WZvorigebutton').style.display='block'
+		elem('WZvolgendebutton').value='Volgende';
+		showDatapage('docu');
+	}
+	
+	if(curStep == 5){
+		elem('WZvorigebutton').style.display='block'
+		elem('WZvolgendebutton').value='Volgende';
+		showDatapage('contact');
+	}
+
+	if(curStep == 6){
+		elem('WZvorigebutton').style.display='block'
+		elem('WZvolgendebutton').value='Volgende';
+		showDatapage('login');
+	}
+	
+	if(curStep == 7 || curStep == 8 || curStep == 9 || curStep == 10){
+		elem('WZvorigebutton').style.display='block'
+		elem('WZvolgendebutton').value='Volgende';
+		showMappage('bespaar');
+	}
+	if (curStep == 10){
+		elem('WZvolgendebutton').value='Voltooien';
+	}
+	if (curStep > 10){
+		curStep = 1
+		elem('WZvorigebutton').style.display='none'
+		elem('WZvolgendebutton').value='Volgende';
+		elem( 'WZ'+curStep ).style.display='block'}
+}
+
+function closeWindow(id){
+	elem(id).style.display='none'
 }
