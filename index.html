@@ -9,10 +9,8 @@
 <script type="text/javascript" src="config/pico-wim.js"></script>
 <script type="text/javascript" src="lib.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
+<script src="http://www.w3schools.com/lib/w3data.js"></script>
 
-<style>
-
-</style>
 <script type="text/javascript">
 function inithelp(){
 	if(window.location.href.indexOf("help") > -1) {
@@ -42,55 +40,54 @@ function inithelp(){
 		<div id='searchresult'></div>
 	</div>
 	<div class='shadow box' id='legend'>
-		<div class='boxheader' onclick='toggleSize("legend")'>Legenda<img id='legend_maxmin' align=right class='titleicon' src='image/maximize.png' title='minimize'></div>
+		<div class='boxheader'>Legenda<img id='legend_maxmin' onclick='toggleSize("legend")' align=right class='titleicon' src='image/maximize.png' title='Minimaliseren'></div>
 		<div id='baselayers'>
-			<span class='baselayerbutton'><img title='stratenkaart' src='image/lyr_straat.jpg' onclick='setBaselayer("Eurostreets")'></span>
-			<span class='baselayerbutton'><img title='luchtfoto' src='image/lyr_lufo.jpg' onclick='setBaselayer("Luchtfoto2012")'></span>
-			<span class='baselayerbutton'><img title='grijzekaart' src='image/lyr_grijs.jpg' onclick='setBaselayer("nachtkaart")'></span>
-			<span class='baselayerbutton'><img title='topografie' src='image/lyr_topo.jpg' onclick='setBaselayer("topokaart")'></span>
+			<span class='baselayerbutton'><img title='Stratenkaart' src='image/lyr_straat.jpg' onclick='setBaselayer("Eurostreets")'></span>
+			<span class='baselayerbutton'><img title='Luchtfoto' src='image/lyr_lufo.jpg' onclick='setBaselayer("Luchtfoto2012")'></span>
+			<span class='baselayerbutton'><img title='Grijzekaart' src='image/lyr_grijs.jpg' onclick='setBaselayer("nachtkaart")'></span>
+			<span class='baselayerbutton'><img title='Topografie' src='image/lyr_topo.jpg' onclick='setBaselayer("topokaart")'></span>
 		</div>
 		<div id='legendgebouwen'>
-			<img class='boxicon' src='image/delete.png' align=right title='maak laag o' onclick='layervisibility("bag_topo")'>
-			<img class='boxicon' src='image/opacity.png' align=right title='maak laag transparant' onclick='layeropacity("bag_topo")'>
-			<img class='boxicon' src='image/eye.png' align=right title='maak laag onzichtbaar' onclick='layervisibility("bag_topo")'>
-			<img class='boxicon' src='image/addlayer.png'  title='maak laag onzichtbaar' onclick='layervisibility("bag_topo")'><span class='clickable' onclick='layervisibility("bag_topo")'>Gebouwen</span>
+			<img class='boxicon' src='image/delete.png' align=right title='Maak laag onzichtbaar' onclick='layervisibility("bag_topo")'>
+			<img class='boxicon' src='image/opacity.png' align=right title='Maak laag transparant' onclick='layeropacity("bag_topo")'>
+			<img class='boxicon' src='image/eye.png' align=right title='Maak laag onzichtbaar' onclick='layervisibility("bag_topo")'>
+			<img class='boxicon' src='image/addlayer.png'  title='Maak laag onzichtbaar' onclick='layervisibility("bag_topo")'><span class='clickable' onclick='layervisibility("bag_topo")'>Gebouwen</span>
 			<hr>
 		</div>
 		<div id='legendcontent'>
 		</div>
 	</div>
 	<div class='box' id='result'>
-		<div class='boxheader' onclick='toggleSize("result")'>Resultaat<span id='aantallen'></span><img id='result_maxmin' align=right class='titleicon' src='image/maximize.png' title='minimize'><img onclick='showDatapage("Resultaat")' align=right class='titleicon' src='image/help.png' title='documentatie'></div>
+		<div class='boxheader' onclick='toggleSize("result")'>Resultaat<span id='aantallen'></span><img id='result_maxmin' align=right class='titleicon' src='image/maximize.png' title='Minimaliseren'><img onclick='showDatapage("Resultaat")' align=right class='titleicon' src='image/help.png' title='Documentatie'></div>
 		<div id='resultcontent'></div>
-	</div>
+	</div>	
 </div>
-
 <div id='leftbox' class='shadow'>
 	<!-- ontwerp je buurt -->
 	<div class='box' id='gebiedselectie' >
 		<div class='boxheader'>Ontwerp je buurt</div>
 		<div class='boxcontent'>
-			<input id='addByArea' placeholder=' Selecteer postcode of buurt' type=text onkeyup="areaAdd(event)"  title="vul in (een deel van een) postcode of buurtnaam">
+			<input id='addByArea' placeholder=' Selecteer postcode of buurt' type=text onkeyup="areaAdd(event)"  title="Vul in (een deel van een) postcode of buurtnaam">
 			<div id='selectresult'><i>Nog niets geselecteerd</i><br></div>
 			<div id='XXcqlfilter'></div>
 			<div id='XXwfsurl'></div>
 			<div id='gebouwselectie'> 
-				<label><input id='gebsel_woning' type=checkbox class='checkbox' onclick='selectieLayer()'>woningen</label><br>
-				<label><input id='gebsel_grondg' type=checkbox class='checkbox' onclick='selectieLayer()'>grondgebonden panden</label><br>
+				<label><input id='gebsel_woning' type=checkbox class='checkbox' onclick='selectieLayer()'>alleen woningen</label><br>
+				<label><input id='gebsel_grondg' type=checkbox class='checkbox' onclick='selectieLayer()'>alleen grondgebonden panden</label><br>
 				<label><input id='gebsel_nieuwb' type=checkbox class='checkbox' onclick='selectieLayer()'>bouwjaar </label>
-					<input id='jaarvan' value='2000' class='jaar' type=text onchange='selectieLayer()'>-<input id='jaartot' onchange='selectieLayer()' class='jaar' value='2020' type=text>
+					<input id='jaarvan' value=' 2000' class='jaar' type=text onchange='selectieLayer()'> - <input id='jaartot' onchange='selectieLayer()' class='jaar' value=' 2020' type=text>
 				<br>
 			</div>
 			<div id='statistiekselectie'>
 				Maatregelen: <span id='pandenaantal'>-</span> panden (<span id='adressenaantal'>-</span>&nbsp;adr.&nbsp;/&nbsp;<span id='postcodeaantal'>-</span>&nbsp;pc.)<br>
 					<!--<span id='adressenaantal'>-</span>-->
-				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick='addLayer("Gemiddelde kostenbesparing (naar B)")'><label><input id="MSR_labelCDEFGnaarB" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Van label CDEFG naar B'>Label CDEFG > B</label><img onclick='showDatapage("Van_label_CDEFG_naar_B")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
-				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick='addLayer("Gemiddelde kostenbesparing (naar A+)")'><label><input id="MSR_labelCDEFGnaarA" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Van label BCDEFG naar A+'>Label BCDEFG > A+</label><img onclick='showDatapage("Van_label_BCDEFG_naar_A_plus")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
+				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick='addLayer("Gemiddelde kostenbesparing (naar B)")'><label><input id="MSR_labelCDEFGnaarB" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Van label CDEFG naar B'>Label CDEFG naar B</label><img onclick='showDatapage("Van_label_CDEFG_naar_B")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
+				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick='addLayer("Gemiddelde kostenbesparing (naar A+)")'><label><input id="MSR_labelCDEFGnaarA" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Van label BCDEFG naar A+'>Label BCDEFG naar A+</label><img onclick='showDatapage("Van_label_BCDEFG_naar_A_plus")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
 				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick='addLayer("Gemiddelde investering (2-stap)")'><label><input id="MSR_label2stap" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Van label EFG 2 stappen beter'>Label EFG 2 beter</label><img onclick='showDatapage("Van_label_EFG_2_stappen_beter")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
 				<img  class='radio' src='image/addlayer.png' title='Toon kaartlaag' onclick="addLayer('Zonnepotentie')"><label><input id="MSR_Zonnepotentie" type=checkbox class='checkbox' onclick='allMeasure(this)' name='Zonnepotentie'>Zonnepotentie</label><img onclick='showDatapage("Zonnepotentie")' align=right class='radio' src='image/help.png' title='Documentatie'><br>
 			</div>
 		</div>
-		<div class='leftboxhelp'><hr><span id='leftboxhelphide'>Type of klik op de kaart en kies een postcode, buurt, wijk of gemeente en bekijk wat de kosten en de baten zijn van isolatiemaatregelen of alternatieve energiebronnen.<br><br>In het resultaatscherm staan de kosten en de baten voor jouw buurt en de door jou gekozen maatregelen.<br><br></span><a href='#' onclick='showMappage("kaarten")'>Alle beschikbare kaartlagen bekijken? Ga dan naar het kaartlagen overzicht.</a></div>
+		<div class='leftboxhelp'><hr>Type of klik op de kaart en kies een postcode, buurt, wijk of gemeente en bekijk wat de kosten en de baten zijn van isolatiemaatregelen of alternatieve energiebronnen.<br><br>In het resultaatscherm staan de kosten en de baten voor jouw buurt en de door jou gekozen maatregelen.<br><br><a href='#' onclick='showMappage("kaarten")'>Alle beschikbare kaartlagen bekijken? Ga dan naar het kaartlagen overzicht.</a></div>
 	</div>
 	<!-- kaartlagen -->
 	<div class='box' id='layerfavo' >
@@ -98,7 +95,7 @@ function inithelp(){
 		<div id='layerlist'></div>
 		<div class='boxcontent'>
 		</div>
-		<div class='leftboxhelp'><hr>Bekijk meer dan 100 kaartlagen met informatie over je buurt.<br><br>De geopende kaartlagen kan je in de leganda rechts aan- en uitzetten of de transparantie aanpassen. <br><br>Klik op de kaart voor informatie over de buurt en de geopende kaartlagen. <br><br>Wat zijn bijvoorbeeld de mogelijkheden voor windmolens of geothermie. Waar zitten de gasaansluitingen en waar lopen de electiciteitsleidingen.<br><br><a href='#' onclick='showMappage("bespaar")'>Nu kijken wat je in jouw buurt kan besparen? Ga dan naar 'ontwerp je buurt'</a></div>
+		<div class='leftboxhelp'><hr>Bekijk meer dan 100 kaartlagen met informatie over je buurt.<br><br>De geopende kaartlagen kan je in de leganda rechts aan- en uitzetten of de transparantie aanpassen. <br><br>Klik op de kaart voor informatie over de buurt en de geopende kaartlagen. <br><br>Wat zijn bijvoorbeeld de mogelijkheden voor windmolens of geothermie? Waar zitten de gasaansluitingen en waar lopen de electiciteitsleidingen?<br><br><a href='#' onclick='showMappage("bespaar")'>Nu kijken wat je in jouw buurt kan besparen? Ga dan naar 'ontwerp je buurt'</a></div>
 	</div>
 	<!-- documentage -->
 	<div class='box' id='datamenu' >
@@ -136,12 +133,13 @@ function inithelp(){
 	<!-- startmenu -->
 	<div  class='box' id='startmenu' >
 		<div class='boxheader'>Menu</div>
-		<div  class='leftboxhelp' >
+		<div  class='boxcontent' >
 			<h2><img class='datamenuimg' width=25px src='image/user.png'> <span class='link' id='loginnaam' onclick='showDatapage("login")'>Inloggen</a></h2>
 			<h2><img class='datamenuimg' width=25px src='image/addlayer.png'> <span class='link' onclick='showMappage("kaarten")'>Bekijk je buurt</span></h2>
 			<h2><img class='datamenuimg' width=25px src='image/map.png'> <span class='link' onclick='showMappage("bespaar")'>Ontwerp je buurt</span></h2>
 			<h2><img class='datamenuimg' width=25px src='image/email.png'> <span class='link' onclick='showDatapage("contact")'>Contact</span></h2>
 			<h2><img class='datamenuimg' width=25px src='image/book.png' > <span class='link' onclick='showDatapage("docu")'>Documentatie</a></h2>
+			<h2><img class='datamenuimg' width=25px src='image/help.png' > <span class='link' onclick='showWizard()'>Tour</span></h2>
 		</div>
 		<div class='leftboxhelp'><hr>Welkom bij Pico<br><br>PICO verstrekt relevante informatie over energie, CO2, kosten en opbrengsten, aan woningcorporaties, vastgoedeigenaren, bewonerscollectieven, (lagere) overheden, netbeheerders en energieleveranciers. PICO zet de mogelijkheden voor energiebesparing, duurzame opwekking en gebruik letterlijk op de kaart. <br><br> <i>PICO is ontwikkeld door een samenwerkingsverband van Geodan, TNO, Alliander, Ecofys, NRG031, en Esri Nederland.</i></div>
 	</div>
@@ -159,24 +157,30 @@ function inithelp(){
 	<img id='people' src='image/people.png'>
 
 	<div id='button'>
-		<img id='button1' class='infobutton' src='image/map.png' title='Ontwerp je buurt'  onclick='showMappage("bespaar")'>
-		<img id='button2' class='infobutton' src='image/addlayer.png' title='Bekijk je buurt' onclick='showMappage("kaarten")'>
-		<img id='button3' class='infobutton' src='image/book.png' title='Documentatie' onclick='showDatapage("docu")'>
-		<img id='button4' class='infobutton' src='image/email.png' title='Contact' onclick='showDatapage("contact")'>
-		<img id='button5' class='infobutton' src='image/user.png' title='Gebruiker' onclick='showDatapage("login")' >
+		<img class='infobutton' src='image/map.png' title='Ontwerp je buurt'  onclick='showMappage("bespaar")'>
+		<img class='infobutton' src='image/addlayer.png' title='Bekijk je buurt' onclick='showMappage("kaarten")'>
+		<img class='infobutton' src='image/book.png' title='Documentatie' onclick='showDatapage("docu")'>
+		<img class='infobutton' src='image/email.png' title='Contact' onclick='showDatapage("contact")'>
+		<img class='infobutton' src='image/user.png' title='Gebruiker' onclick='showDatapage("login")' >
+		<img class='infobutton' src='image/help.png' title='Tour' onclick='showWizard()'>
 	</div>
 </div>
 
 </div>  <!-- EINDE MAPPAGE *********************************************** -->
 
 <!-- iframe met documentatie -->
-<div id='datapage' >
-	<div id='data' class='shadow' style='max-width:1010px;'>
+<div id='datapage'>
+	<div id='data' class='shadow'>
 		<iframe id='documentation' name='documentation' name='zoekframe' src="data/Ontwerp_een_duurzame_buurt.html" style="width:100%;height:100%;overflow:hidden;max-width:1000px;" frameborder="0" border="0" framespacing="0"></iframe>
 	</div>
 </div>
 
 <span id='dummy'></span>
-
+<div id='help'></div>
+<!--Wizard-->
+<div w3-include-html="uitlegtour.html"></div>
+<script>
+w3IncludeHTML();
+</script>
 </body>
 </html>
