@@ -1,4 +1,5 @@
 // ################ ################ MAP functions ################ ################
+// ################ ################ MAP functions ################ ################
 
 var map, eurostreets, lufo2012,nachtkaart,postcode_gebouwen,basis_gebouwen,topokaart
 userid = "d7cd2afb"
@@ -69,8 +70,6 @@ function initmap(){
     map.setCenter((new OpenLayers.LonLat(160000,450000)), 3);
     //coordinaat positie muis weergeven
     map.addControl(new OpenLayers.Control.MousePosition());
-    //Layercontrole toevoegen
-	initLayerlist()
 	//info na klik opvragen
 	registerInfoEvent()
 	//initlogin
@@ -89,6 +88,22 @@ function initmap(){
 		showDatapage(window.location.href.split('page=')[1])
 	}else{
 		showDatapage( 'start' )
+	}
+
+    //verwerk generic config
+	initLayerlist()
+
+	//load a specific config, if needed
+	if (window.location.href.indexOf('config=') > 0){	
+		var custConfig = window.location.href.split('config=')[1]+'.js'
+		loadXMLDoc( 'config/'+custConfig, function( respons ){
+				if (respons) {
+					if (respons){
+						picoConfig=respons
+						initLayerlist()
+					}
+				}
+			})
 	}
 	//save layers,X,Y and Z after every zoom and pan
 	map.events.register("moveend", map,function(){savelayers()});
